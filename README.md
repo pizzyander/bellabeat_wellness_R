@@ -151,7 +151,8 @@ ggplot(data = avg_daily_activity) +
   geom_point(aes(x = activity_date, y = avg_cal), color = "red", size=2.0) +
   labs(title = "Average Calories Burned per Day")
 ```
-![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/8f881ba2-d138-4f27-a2a2-ea25d3207156)
+
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/fe047ae9-34d6-4745-9947-2120c1d611c4)
 
 The code below generates a plot for average total steps of all users combined, per day for a period of 31 successive days.
 ```{R}
@@ -184,7 +185,7 @@ ggplot(data = avg_daily_activity) +
 ```  
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/a59271e2-1d47-475b-8470-b13721bdc361)
 
-clearly, al the plots look very similar. It's showing some correlation.  
+clearly, all the plots look very similar. It's showing some correlation.  
 Let's check for the correlation coefficient between each of these fields and "calories burned" to confirm the hunch.  
 My primary focus is on calories burned.   
 
@@ -197,14 +198,15 @@ cor(avg_daily_activity$avg_total_steps,avg_daily_activity$avg_cal)
 The above code shows that there is high correlation between each of these fields and "calories burned".  
 
 ### KEY FINDINGS  
-The highest correlation is between average calories burned and the average total active minutes.
-This shows that an increase in the activity of a user results has the highest influence on the calories burned by that user.
-There is a reoccuring decrease in activity and calories burned on sundays.  
+- The highest correlation is between average calories burned and the average total active minutes.
+- This shows that an increase in the activity of a user results has the highest influence on the calories burned by that user.
+- There is a reoccuring decrease in activity and calories burned on sundays.  
 
 ### RECOMMENDATIONS  
-BellaBeat should make an upgrade to their app to include a feature that motivates the users to be more active.   
-This would result in more calories burned and more satisfied users.  
-BellaBeat can also insentivise their most active users to create an air of competition.
+- BellaBeat should make an upgrade to their app to include a feature that motivates the users to be more active.   
+- This would result in more calories burned and more satisfied users.  
+- BellaBeat can also insentivise their most active users to create an air of competition.
 
 ### LIMITATIONS  
-The data provided does not span over a long period of time. This could have enabled me to view more trends in the data.
+- The data provided does not span over a long period of time.
+- This could have enabled me to view more trends in the data.
