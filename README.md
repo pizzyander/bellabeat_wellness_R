@@ -35,7 +35,7 @@ This analysis is focused on exploring Fitbit Fitness Tracker data to draw insigh
 - Rstudio: statistical analysis
 - Rstudio: creating visualization
 
-### DATA CLEANIN/ PREPARATION  
+### DATA CLEANING/ PREPARATION  
 For a start, i installed all the necessary packages needed for the cleaning and analysis processes
 ```{R}
 #install all necessary packages
