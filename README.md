@@ -56,7 +56,7 @@ View(daily_activity_merged)
 head(daily_activity_merged)
 ```
 ![head dataframe](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/db80d1ec-2ee2-4f66-a1d3-b969e78dd1fe)
-As you can see, the dataframe contains 16 columns, some of the columns have been aggregated. i only need 5 columns, so i will remove those unwanted columns
+As you can see, the dataframe contains 16 columns, some of the columns have been aggregated. i only need 5 columns, so i will remove the unwanted columns
 ```{R}
 #remove all irrelevant columns
 daily_activity <- daily_activity_merged %>%
@@ -68,7 +68,7 @@ head(daily_activity)
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/e611285d-1744-4be7-b46c-e43fdca9f9c0)
 Now we are left with 5 relevant columns
 
-Now we are going to delete all null rows, to our data is as clean as possible.
+Now we are going to delete all null rows, so our data can be as clean as possible.
 ```{R}
 #delete all null rows from the dataframe
 daily_activity <- daily_activity %>%
@@ -100,4 +100,39 @@ boxplot(daily_activity$total_steps, main="total_steps_boxplot",ylab="total_steps
 boxplot(daily_activity$total_distance, main="total_distance_boxplot",ylab="total_distance")
 ```
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/e97b2f1a-0c81-47f9-b033-f8d1341b33d4)
+
+As shown above, we expect a skew for total steps and total distance, because human activity is not evenly distributed throughout the day.
+during the day, we are very active, and at night we are very less active.
+
+To confirm this data distribution, we can look it up on a histogram chart.
+
+```{R}
+#carry out histogram plot to check their visual distribution
+hist(daily_activity$calories)
+hist(daily_activity$active_minutes)
+hist(daily_activity$total_steps)
+hist(daily_activity$total_distance)
+```
+The above chart gives a better visualization of the distribution of the field as explained above.
+
+Since we are working with entries for 31 different users over the span of 31days, we are going to focus on the average of daily output for all users.
+```{R}
+#creating a new variable for the average(mean) of the columns for each day
+avg_daily_activity <- daily_activity %>%
+  group_by(activity_date) %>%
+  summarize(avg_active_min = mean(active_minutes), avg_cal = mean(calories), avg_total_steps = mean(total_steps),
+           avg_total_distance = mean(total_distance))
+head(avg_daily_activity)
+```
+the above code generates the average of all fields per day for the 31 users.
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/49901622-0b61-47b4-934d-bcd920d45ac3)
+
+since we generate the average of the fields per day, it is only fair to generate the sum of the fields too.
+```{R}
+#creating a new variable for the sum of the columns for each day
+sum_daily_activity <- daily_activity %>%
+  group_by(activity_date) %>%
+  summarize(sum_active_min = sum(active_minutes), sum_cal = sum(calories), sum_total_steps = sum(total_steps),
+      sum_total_distance = sum(total_distance))
+```
 
