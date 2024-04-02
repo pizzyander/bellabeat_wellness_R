@@ -6,12 +6,10 @@ This analysis is focused on exploring Fitbit Fitness Tracker data to draw insigh
 [QUESTIONS TO ANSWER](#questions-to-answer)  
 [DATA SOURCE](#data-source)  
 [TOOLS](#tools)  
-[DATA CLEANING/ PREPARATION](#data-cleaning-preparation)  
-[EXPLORATORY DATA ANALYSIS](#exploratory-data-analysis)  
-[DATA ANALYSIS](#data-analysis)  
-[VISUALIZATION](#visualization)  
+[DATA CLEANING/ PREPARATION](#data-cleaning-preparation)   
+[DATA ANALYSIS](#data-analysis)   
 [KEY FINDINGS](#key-findings)  
-[RECOMMENDATION](recommendation)  
+[RECOMMENDATIONS](recommendations)  
 [LIMITATIONS](limitations)  
 ### DELIVERABLES
 1.	A clear summary of the business task 
@@ -69,9 +67,10 @@ head(daily_activity)
 ```
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/e611285d-1744-4be7-b46c-e43fdca9f9c0)  
 
-Now we are left with 5 relevant columns
+Now we are left with 5 relevant columns.  
 
-Now we are going to delete all null rows, so our data can be as clean as possible.
+Now we are going to delete all null rows, so our data can be as clean as possible.  
+
 ```{R}
 #delete all null rows from the dataframe
 daily_activity <- daily_activity %>%
@@ -80,7 +79,7 @@ daily_activity <- daily_activity %>%
 head(daily_activity)
 view(daily_activity)
 ```
-
+### DATA ANALYSIS
 Next step is to check for the distribution of the fields in the data frame. This will enable us to examine the fields for skew in the data.  
 
 ```{R}
@@ -89,7 +88,8 @@ boxplot(daily_activity$calories, main="calories_boxplot",ylab="calories")
 ```
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/57af7bac-8f1c-4eca-84de-a4c79267ec91)  
 
-From our observation, there is a bit of a skew in the data caused by uneven distribution of the data. This is caused by days where there was signifacantly low calorie burn.  
+From our observation, there is a bit of a skew in the data caused by uneven distribution of the data.  
+This is caused by days where there was signifacantly low calorie burn.  
 But the data is still workable.  
 Lets check the distribution for other fields  
 ```{R}
@@ -107,8 +107,9 @@ boxplot(daily_activity$total_distance, main="total_distance_boxplot",ylab="total
 ```
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/e97b2f1a-0c81-47f9-b033-f8d1341b33d4)
 
-As shown above, we expect a skew for total steps and total distance, because human activity is not evenly distributed throughout the day.
-during the day, we are very active, and at night we are very less active.
+As shown above, we expect a skew for total steps and total distance, because the users activity is not evenly distributed throughout the day.  
+
+During the day, they are very active, and at night they are very less active.
 
 To confirm this data distribution, we can look it up on a histogram chart.
 
@@ -183,16 +184,27 @@ ggplot(data = avg_daily_activity) +
 ```  
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/a59271e2-1d47-475b-8470-b13721bdc361)
 
-clearly, al the plots look very similar. It's showing some correlation.
-Let's check for the correlation coefficient between each of these fields and "calories burned" to confirm the hunch.
-My primary focus is on calories burned. 
+clearly, al the plots look very similar. It's showing some correlation.  
+Let's check for the correlation coefficient between each of these fields and "calories burned" to confirm the hunch.  
+My primary focus is on calories burned.   
+
 ```{R}
 cor(avg_daily_activity$avg_cal,avg_daily_activity$avg_total_distance)
 cor(avg_daily_activity$avg_cal,avg_daily_activity$avg_active_min)
 cor(avg_daily_activity$avg_total_steps,avg_daily_activity$avg_cal)
 ```
-![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/0898a87c-93e6-4d1e-8ef3-9cd35a7edb03)
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/0898a87c-93e6-4d1e-8ef3-9cd35a7edb03)  
+The above code shows that there is high correlation between each of these fields and "calories burned".  
 
-The above code shows that there is high correlation between each of these fields and "calories burned".
+### KEY FINDINGS  
 The highest correlation is between average calories burned and the average total active minutes.
 This shows that an increase in the activity of a user results has the highest influence on the calories burned by that user.
+There is a reoccuring decrease in activity and calories burned on sundays.  
+
+### RECOMMENDATIONS  
+BellaBeat should make an upgrade to their app to include a feature that motivates the users to be more active.   
+This would result in more calories burned and more satisfied users.  
+BellaBeat can also insentivise their most active users to create an air of competition.
+
+### LIMITATIONS  
+The data provided does not span over a long period of time. This could have enabled me to view more trends in the data.
