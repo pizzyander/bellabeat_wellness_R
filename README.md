@@ -56,7 +56,9 @@ View(daily_activity_merged)
 head(daily_activity_merged)
 ```
 ![head dataframe](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/db80d1ec-2ee2-4f66-a1d3-b969e78dd1fe)
-As you can see, the dataframe contains 16 columns, some of the columns have been aggregated. i only need 5 columns, so i will remove the unwanted columns
+As you can see, the dataframe contains 16 columns, some of the columns have been aggregated.   
+I only need 5 columns, so i will remove the unwanted columns and assing the resulting dataframe to a new vaiable  
+
 ```{R}
 #remove all irrelevant columns
 daily_activity <- daily_activity_merged %>%
@@ -65,7 +67,8 @@ daily_activity <- daily_activity_merged %>%
          -'very_active_distance',-'very_active_minutes',-'fairly_active_minutes',-'light_active_distance', -'lightly_active_minutes')
 head(daily_activity)
 ```
-![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/e611285d-1744-4be7-b46c-e43fdca9f9c0)
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/e611285d-1744-4be7-b46c-e43fdca9f9c0)  
+
 Now we are left with 5 relevant columns
 
 Now we are going to delete all null rows, so our data can be as clean as possible.
@@ -77,12 +80,15 @@ daily_activity <- daily_activity %>%
 head(daily_activity)
 view(daily_activity)
 ```
-Next step is to check for the distribution of the fields in the data frame. This will enable us to examine the fields for skew in the data.
+
+Next step is to check for the distribution of the fields in the data frame. This will enable us to examine the fields for skew in the data.  
+
 ```{R}
 #check for the distribution of the columns
 boxplot(daily_activity$calories, main="calories_boxplot",ylab="calories") 
 ```
-![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/57af7bac-8f1c-4eca-84de-a4c79267ec91)
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/57af7bac-8f1c-4eca-84de-a4c79267ec91)  
+
 From our observation, there is a bit of a skew in the data caused by uneven distribution of the data. This is caused by days where there was signifacantly low calorie burn.  
 But the data is still workable.  
 Lets check the distribution for other fields  
@@ -148,25 +154,35 @@ ggplot(data = avg_daily_activity) +
 
 The code below generates a plot for average total steps of all users combined, per day for a period of 31 successive days.
 ```{R}
-# geom_line plot of the average total steps over time in avg_daily_activity line plots  
+# geom_line plot of the calories over time in avg_daily_activity line plots  
 ggplot(data = avg_daily_activity) +
   geom_line(mapping= aes(x=activity_date, y=avg_total_steps), color = "red", size= 1.5) +
-  geom_point(aes(x = activity_date, y = avg_total_steps), color = "blue", size=2.0)
-```
+  geom_point(aes(x = activity_date, y = avg_total_steps), color = "blue", size=2.0) +
+  labs(title = "Average Steps Walked per Day")
+```  
+
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/6beff1fd-548e-4494-82ef-389d4c2c02e3)
+
 The code below generates a plot of the average active minutes of all users combined, per day for a period of 31 successive days.
 ```{R}
-# geom_line plot of the average active minutes over time in avg_daily_activity line plots  
+# geom_line plot of the calories over time in avg_daily_activity line plots  
 ggplot(data = avg_daily_activity) +
-  geom_line(mapping= aes(x=activity_date, y=avg_active_min), color = "red", size= 1.5) +
-  geom_point(aes(x = activity_date, y = avg_active_min), color = "blue", size=2.0)
-```
+  geom_line(mapping= aes(x=activity_date, y=avg_active_min), color = "brown", size= 1.5) +
+  geom_point(aes(x = activity_date, y = avg_active_min), color = "yellow", size=2.0) +
+  labs(title = "Average active minutes per day")
+```  
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/00577541-a0e7-4db4-b3f3-8ad1b871aab6)
+
 The code below generates a plot of the average distance covered by all users, per day for a period of 31 successive days.
 ```{R}
-# geom_line plot of the average distance covered over time in avg_daily_activity line plots  
+# geom_line plot of the calories over time in avg_daily_activity line plots  
 ggplot(data = avg_daily_activity) +
   geom_line(mapping= aes(x=activity_date, y=avg_total_distance), color = "blue", size= 1.5) +
-  geom_point(aes(x = activity_date, y = avg_total_distance), color = "green", size=2.0)
-```
+  geom_point(aes(x = activity_date, y = avg_total_distance), color = "green", size=2.0) +
+  labs(title = "Average total distance walked per day")
+```  
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/a59271e2-1d47-475b-8470-b13721bdc361)
+
 clearly, al the plots look very similar. It's showing some correlation.
 Let's check for the correlation coefficient between each of these fields and "calories burned" to confirm the hunch.
 My primary focus is on calories burned. 
@@ -175,6 +191,8 @@ cor(avg_daily_activity$avg_cal,avg_daily_activity$avg_total_distance)
 cor(avg_daily_activity$avg_cal,avg_daily_activity$avg_active_min)
 cor(avg_daily_activity$avg_total_steps,avg_daily_activity$avg_cal)
 ```
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/0898a87c-93e6-4d1e-8ef3-9cd35a7edb03)
+
 The above code shows that there is high correlation between each of these fields and "calories burned".
 The highest correlation is between average calories burned and the average total active minutes.
 This shows that an increase in the activity of a user results has the highest influence on the calories burned by that user.
