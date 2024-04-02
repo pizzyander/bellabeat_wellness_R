@@ -135,4 +135,46 @@ sum_daily_activity <- daily_activity %>%
   summarize(sum_active_min = sum(active_minutes), sum_cal = sum(calories), sum_total_steps = sum(total_steps),
       sum_total_distance = sum(total_distance))
 ```
+At this point, We will use statistical analysis and plots to determine correllation and causation from the data.
+the code below generates a plot for average calories burned per day for a period of 31 successive days. 
+```{R}
+# geom_line plot of the average calories over time in avg_daily_activity line plots  
+ggplot(data = avg_daily_activity) +
+  geom_line(mapping= aes(x=activity_date, y=avg_cal), color = "green", size= 1.5, fill=1) +
+  geom_point(aes(x = activity_date, y = avg_cal), color = "red", size=2.0) +
+  labs(title = "Average Calories Burned per Day")
+```
+![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/8f881ba2-d138-4f27-a2a2-ea25d3207156)
 
+The code below generates a plot for average total steps of all users combined, per day for a period of 31 successive days.
+```{R}
+# geom_line plot of the average total steps over time in avg_daily_activity line plots  
+ggplot(data = avg_daily_activity) +
+  geom_line(mapping= aes(x=activity_date, y=avg_total_steps), color = "red", size= 1.5) +
+  geom_point(aes(x = activity_date, y = avg_total_steps), color = "blue", size=2.0)
+```
+The code below generates a plot of the average active minutes of all users combined, per day for a period of 31 successive days.
+```{R}
+# geom_line plot of the average active minutes over time in avg_daily_activity line plots  
+ggplot(data = avg_daily_activity) +
+  geom_line(mapping= aes(x=activity_date, y=avg_active_min), color = "red", size= 1.5) +
+  geom_point(aes(x = activity_date, y = avg_active_min), color = "blue", size=2.0)
+```
+The code below generates a plot of the average distance covered by all users, per day for a period of 31 successive days.
+```{R}
+# geom_line plot of the average distance covered over time in avg_daily_activity line plots  
+ggplot(data = avg_daily_activity) +
+  geom_line(mapping= aes(x=activity_date, y=avg_total_distance), color = "blue", size= 1.5) +
+  geom_point(aes(x = activity_date, y = avg_total_distance), color = "green", size=2.0)
+```
+clearly, al the plots look very similar. It's showing some correlation.
+Let's check for the correlation coefficient between each of these fields and "calories burned" to confirm the hunch.
+My primary focus is on calories burned. 
+```{R}
+cor(avg_daily_activity$avg_cal,avg_daily_activity$avg_total_distance)
+cor(avg_daily_activity$avg_cal,avg_daily_activity$avg_active_min)
+cor(avg_daily_activity$avg_total_steps,avg_daily_activity$avg_cal)
+```
+The above code shows that there is high correlation between each of these fields and "calories burned".
+The highest correlation is between average calories burned and the average total active minutes.
+This shows that an increase in the activity of a user results has the highest influence on the calories burned by that user.
