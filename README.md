@@ -88,9 +88,6 @@ boxplot(daily_activity$calories, main="calories_boxplot",ylab="calories")
 ```
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/57af7bac-8f1c-4eca-84de-a4c79267ec91)  
 
-From our observation, there is a bit of a skew in the data caused by uneven distribution of the data.  
-This is caused by days where there was signifacantly low calorie burn.  
-But the data is still workable.  
 Lets check the distribution for other fields  
 ```{R}
 boxplot(daily_activity$active_minutes, main="active_minutes_boxplot",ylab="active_minutes")
@@ -107,9 +104,9 @@ boxplot(daily_activity$total_distance, main="total_distance_boxplot",ylab="total
 ```
 ![Capture](https://github.com/pizzyander/bellabeat_wellness_R/assets/141561016/e97b2f1a-0c81-47f9-b033-f8d1341b33d4)
 
-As shown above, we expect a skew for total steps and total distance, because the users activity is not evenly distributed throughout the day.  
-
-During the day, they are very active, and at night they are very less active.
+As shown above, There is a skew in the boxplot of total steps and total distance, because the users activity is not evenly distributed throughout the day.  
+Hence some values are grouped as outliers.  
+During the day, users are very active, and at night they are very less active.
 
 To confirm this data distribution, we can look it up on a histogram chart.
 
